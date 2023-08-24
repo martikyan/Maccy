@@ -20,6 +20,8 @@ class AppearancePreferenceViewController: NSViewController, PreferencePane {
   @IBOutlet weak var titleLengthLabel: NSTextField!
   @IBOutlet weak var previewDelayField: NSTextField!
   @IBOutlet weak var previewDelayStepper: NSStepper!
+  @IBOutlet weak var searchDelayField: NSTextField!
+  @IBOutlet weak var searchDelayStepper: NSStepper!
   @IBOutlet weak var showMenuIconButton: NSButton!
   @IBOutlet weak var changeMenuIcon: NSPopUpButton!
   @IBOutlet weak var showRecentCopyButton: NSButton!
@@ -30,11 +32,16 @@ class AppearancePreferenceViewController: NSViewController, PreferencePane {
   private let previewDelayMin = 200
   private let previewDelayMax = 100_000
 
+  private let searchDelayMin = 0
+  private let searchDelayMax = 5000
+
   private var previewDelayFormatter: NumberFormatter!
+  private var searchDelayFormatter: NumberFormatter!
 
   override func viewDidLoad() {
     super.viewDidLoad()
     setMinAndMaxPreviewDelay()
+    setMinAndMaxSearchDelay()
   }
 
   override func viewWillAppear() {
@@ -46,6 +53,7 @@ class AppearancePreferenceViewController: NSViewController, PreferencePane {
     populateMenuSize()
     populateTitleLength()
     populatePreviewDelay()
+    populateSearchDelay()
     populateShowMenuIcon()
     populateChangeMenuIcon()
     populateShowRecentCopy()
@@ -129,6 +137,16 @@ class AppearancePreferenceViewController: NSViewController, PreferencePane {
   @IBAction func previewDelayStepperChanged(_ sender: NSStepper) {
     UserDefaults.standard.previewDelay = sender.integerValue
     previewDelayField.integerValue = sender.integerValue
+  }
+    
+  @IBAction func searchDelayFieldChanged(_ sender: NSTextField) {
+    UserDefaults.standard.searchDelay = sender.integerValue
+    searchDelayStepper.integerValue = sender.integerValue
+  }
+
+  @IBAction func searchDelayStepperChanged(_ sender: NSStepper) {
+    UserDefaults.standard.searchDelay = sender.integerValue
+    searchDelayField.integerValue = sender.integerValue
   }
 
   @IBAction func showMenuIconChanged(_ sender: NSButton) {
@@ -258,10 +276,27 @@ class AppearancePreferenceViewController: NSViewController, PreferencePane {
     previewDelayStepper.maxValue = Double(previewDelayMax)
   }
 
-  private func populatePreviewDelay() {
-    previewDelayField.integerValue = UserDefaults.standard.previewDelay
-    previewDelayStepper.integerValue = UserDefaults.standard.previewDelay
-  }
+    // todo: fix the indent
+    private func setMinAndMaxSearchDelay() {
+        searchDelayFormatter = NumberFormatter()
+        searchDelayFormatter.minimum = searchDelayMin as NSNumber
+        searchDelayFormatter.maximum = searchDelayMax as NSNumber
+        searchDelayFormatter.maximumFractionDigits = 0
+        searchDelayField.formatter = searchDelayFormatter
+        searchDelayStepper.minValue = Double(searchDelayMin)
+        searchDelayStepper.maxValue = Double(searchDelayMax)
+    }
+    
+
+    private func populatePreviewDelay() {
+      previewDelayField.integerValue = UserDefaults.standard.previewDelay
+      previewDelayStepper.integerValue = UserDefaults.standard.previewDelay
+    }
+    
+    private func populateSearchDelay() {
+        searchDelayField.integerValue = UserDefaults.standard.searchDelay
+        searchDelayStepper.integerValue = UserDefaults.standard.searchDelay
+    }
 
   private func populateShowMenuIcon() {
     showMenuIconButton.state = UserDefaults.standard.showInStatusBar ? .on : .off

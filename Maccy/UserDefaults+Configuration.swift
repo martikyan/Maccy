@@ -27,6 +27,7 @@ extension UserDefaults {
     static let popupPosition = "popupPosition"
     static let popupScreen = "popupScreen"
     static let previewDelay = "previewDelay"
+    static let searchDelay = "searchDelay"
     static let searchMode = "searchMode"
     static let removeFormattingByDefault = "removeFormattingByDefault"
     static let saratovSeparator = "enableSaratovSeparator"
@@ -54,6 +55,7 @@ extension UserDefaults {
     static let pinTo = "top"
     static let popupPosition = "cursor"
     static let previewDelay = 1500
+    static let searchDelay = 700
     static let searchMode = "exact"
     static let showInStatusBar = true
     static let size = 200
@@ -190,6 +192,11 @@ extension UserDefaults {
   public var previewDelay: Int {
     get { integer(forKey: Keys.previewDelay) }
     set { set(newValue, forKey: Keys.previewDelay) }
+  }
+    
+  public var searchDelay: Int {
+    get { integer(forKey: Keys.searchDelay) }
+    set { set(newValue, forKey: Keys.searchDelay) }
   }
 
   @objc dynamic public var removeFormattingByDefault: Bool {
