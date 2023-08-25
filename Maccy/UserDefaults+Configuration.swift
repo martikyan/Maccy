@@ -194,7 +194,7 @@ extension UserDefaults {
     set { set(newValue, forKey: Keys.previewDelay) }
   }
     
-  public var searchDelay: Int {
+  @objc dynamic public var searchDelay: Int {
     get { integer(forKey: Keys.searchDelay) }
     set { set(newValue, forKey: Keys.searchDelay) }
   }

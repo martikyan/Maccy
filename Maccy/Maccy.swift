@@ -59,6 +59,7 @@ class Maccy: NSObject {
   private var statusItemConfigurationObserver: NSKeyValueObservation?
   private var statusItemVisibilityObserver: NSKeyValueObservation?
   private var statusItemChangeObserver: NSKeyValueObservation?
+  private var searchDelayChangeObserver: NSKeyValueObservation?
 
   override init() {
     UserDefaults.standard.register(defaults: [
@@ -93,6 +94,7 @@ class Maccy: NSObject {
     statusItemConfigurationObserver?.invalidate()
     statusItemVisibilityObserver?.invalidate()
     statusItemChangeObserver?.invalidate()
+    searchDelayChangeObserver?.invalidate()
   }
 
   func popUp() {
@@ -434,6 +436,9 @@ class Maccy: NSObject {
     }
     statusItemChangeObserver = UserDefaults.standard.observe(\.menuIcon, options: .new) { _, change in
       self.updateStatusMenuIcon(change.newValue!)
+    }
+    searchDelayChangeObserver = UserDefaults.standard.observe(\.searchDelay, options: .new) { _, _ in
+      self.rebuild()
     }
   }
 }

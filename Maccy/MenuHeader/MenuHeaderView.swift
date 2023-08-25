@@ -16,7 +16,7 @@ class MenuHeaderView: NSView, NSSearchFieldDelegate {
   ]
   private let macOSXLeftPadding: CGFloat = 20.0
   private let macOSXRightPadding: CGFloat = 10.0
-  private let searchThrottler = Throttler(minimumDelay: getSearchDelay())
+  private let searchThrottler = Throttler(minimumDelay: TimeInterval(Double(UserDefaults.standard.searchDelay) / 1000))
 
   private var characterPickerVisible: Bool {
     NSApp.windows.filter({ $0.isVisible }).map({ $0.className }).contains("NSPanelViewBridge")
@@ -118,14 +118,9 @@ class MenuHeaderView: NSView, NSSearchFieldDelegate {
   }
 
   private func fireNotification() {
-    searchThrottler.minimumDelay = TimeInterval(Double(UserDefaults.standard.searchDelay) / 1000)
     searchThrottler.throttle {
       self.customMenu?.updateFilter(filter: self.queryField.stringValue)
     }
-  }
-    
-  private static func getSearchDelay() -> TimeInterval {
-    return TimeInterval(Double(UserDefaults.standard.searchDelay) / 1000)
   }
 
   private func setQuery(_ newQuery: String) {
