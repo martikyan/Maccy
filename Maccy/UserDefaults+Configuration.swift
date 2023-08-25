@@ -55,7 +55,7 @@ extension UserDefaults {
     static let pinTo = "top"
     static let popupPosition = "cursor"
     static let previewDelay = 1500
-    static let searchDelay = 700
+    static let searchDelay = 400
     static let searchMode = "exact"
     static let showInStatusBar = true
     static let size = 200
