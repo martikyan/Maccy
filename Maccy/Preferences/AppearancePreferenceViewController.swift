@@ -276,27 +276,25 @@ class AppearancePreferenceViewController: NSViewController, PreferencePane {
     previewDelayStepper.maxValue = Double(previewDelayMax)
   }
 
-    // todo: fix the indent
-    private func setMinAndMaxSearchDelay() {
-        searchDelayFormatter = NumberFormatter()
-        searchDelayFormatter.minimum = searchDelayMin as NSNumber
-        searchDelayFormatter.maximum = searchDelayMax as NSNumber
-        searchDelayFormatter.maximumFractionDigits = 0
-        searchDelayField.formatter = searchDelayFormatter
-        searchDelayStepper.minValue = Double(searchDelayMin)
-        searchDelayStepper.maxValue = Double(searchDelayMax)
-    }
-    
+  private func setMinAndMaxSearchDelay() {
+    searchDelayFormatter = NumberFormatter()
+    searchDelayFormatter.minimum = searchDelayMin as NSNumber
+    searchDelayFormatter.maximum = searchDelayMax as NSNumber
+    searchDelayFormatter.maximumFractionDigits = 0
+    searchDelayField.formatter = searchDelayFormatter
+    searchDelayStepper.minValue = Double(searchDelayMin)
+    searchDelayStepper.maxValue = Double(searchDelayMax)
+  }
 
-    private func populatePreviewDelay() {
-      previewDelayField.integerValue = UserDefaults.standard.previewDelay
-      previewDelayStepper.integerValue = UserDefaults.standard.previewDelay
-    }
-    
-    private func populateSearchDelay() {
-        searchDelayField.integerValue = UserDefaults.standard.searchDelay
-        searchDelayStepper.integerValue = UserDefaults.standard.searchDelay
-    }
+  private func populatePreviewDelay() {
+    previewDelayField.integerValue = UserDefaults.standard.previewDelay
+    previewDelayStepper.integerValue = UserDefaults.standard.previewDelay
+  }
+  
+  private func populateSearchDelay() {
+    searchDelayField.integerValue = UserDefaults.standard.searchDelay
+    searchDelayStepper.integerValue = UserDefaults.standard.searchDelay
+  }
 
   private func populateShowMenuIcon() {
     showMenuIconButton.state = UserDefaults.standard.showInStatusBar ? .on : .off
