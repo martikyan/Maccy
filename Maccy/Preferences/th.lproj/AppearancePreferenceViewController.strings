@@ -69,3 +69,12 @@
 
 /* Class = "NSPopUpButton"; ibShadowedToolTip = "Change the location where popup appears.\nDefault: Cursor."; ObjectID = "ZHc-k4-Nf9"; */
 "ZHc-k4-Nf9.ibShadowedToolTip" = "เปลี่ยนตำแหน่งที่ popup แสดง.\nค่าเริ่มต้น: Cursor";
+
+/* Class = "NSTextFieldCell"; title = "Delay in milliseconds for search results update.\nDefault: 400."; ObjectID = "0YN-ig-1nW"; */
+"0YN-ig-1nW.title" = "ความล่าช้าในมิลลิวินาทีสำหรับการอัปเดตผลลัพธ์การค้นหา\nค่าเริ่มต้น: 400";
+
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Change the location where popup appears.\nDefault: Cursor."; ObjectID = "MCd-5h-YbU"; */
+"MCd-5h-YbU.ibShadowedToolTip" = "เปลี่ยนตำแหน่งที่ป๊อปอัพปรากฏขึ้น\nค่าเริ่มต้น: ตัวชี้";
+
+/* Class = "NSTextFieldCell"; title = "Search delay:"; ObjectID = "wFt-z6-emF"; */
+"wFt-z6-emF.title" = "ความล่าช้าในการค้นหา:";

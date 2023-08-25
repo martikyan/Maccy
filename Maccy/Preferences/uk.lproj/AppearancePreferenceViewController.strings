@@ -69,3 +69,12 @@
 
 /* Class = "NSPopUpButton"; ibShadowedToolTip = "Change the location where popup appears.\nDefault: Cursor."; ObjectID = "ZHc-k4-Nf9"; */
 "ZHc-k4-Nf9.ibShadowedToolTip" = "Змініть розташування спливаючого вікна.\nЗа замовчуванням: Курсор.";
+
+/* Class = "NSTextFieldCell"; title = "Delay in milliseconds for search results update.\nDefault: 400."; ObjectID = "0YN-ig-1nW"; */
+"0YN-ig-1nW.title" = "Затримка в мілісекундах для оновлення результатів пошуку.\nЗа замовчуванням: 400.";
+
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Change the location where popup appears.\nDefault: Cursor."; ObjectID = "MCd-5h-YbU"; */
+"MCd-5h-YbU.ibShadowedToolTip" = "Змініть місце відображення спливаючого вікна.\nЗа замовчуванням: Вказівник.";
+
+/* Class = "NSTextFieldCell"; title = "Search delay:"; ObjectID = "wFt-z6-emF"; */
+"wFt-z6-emF.title" = "Затримка пошуку:";

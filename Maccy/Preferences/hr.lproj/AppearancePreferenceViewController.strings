@@ -69,3 +69,12 @@
 
 /* Class = "NSPopUpButton"; ibShadowedToolTip = "Change the location where popup appears.\nDefault: Cursor."; ObjectID = "ZHc-k4-Nf9"; */
 "ZHc-k4-Nf9.ibShadowedToolTip" = "Promijeni mjesto gdje će se skočni prozor pojaviti.\nStandardno: Kursor.";
+
+/* Class = "NSTextFieldCell"; title = "Delay in milliseconds for search results update.\nDefault: 400."; ObjectID = "0YN-ig-1nW"; */
+"0YN-ig-1nW.title" = "Kašnjenje u milisekundama za ažuriranje rezultata pretrage.\nZadano: 400.";
+
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Change the location where popup appears.\nDefault: Cursor."; ObjectID = "MCd-5h-YbU"; */
+"MCd-5h-YbU.ibShadowedToolTip" = "Promijenite lokaciju na kojoj se pojavljuje skočni prozor.\nZadano: Pokazivač.";
+
+/* Class = "NSTextFieldCell"; title = "Search delay:"; ObjectID = "wFt-z6-emF"; */
+"wFt-z6-emF.title" = "Kašnjenje pri pretraživanju:";
