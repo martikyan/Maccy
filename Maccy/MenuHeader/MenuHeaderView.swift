@@ -118,15 +118,15 @@ class MenuHeaderView: NSView, NSSearchFieldDelegate {
   }
 
   private func fireNotification() {
-      searchThrottler.minimumDelay = TimeInterval(Double(UserDefaults.standard.searchDelay) / 1000)
-      searchThrottler.throttle {
+    searchThrottler.minimumDelay = TimeInterval(Double(UserDefaults.standard.searchDelay) / 1000)
+    searchThrottler.throttle {
       self.customMenu?.updateFilter(filter: self.queryField.stringValue)
     }
   }
     
   private static func getSearchDelay() -> TimeInterval {
-        return TimeInterval(Double(UserDefaults.standard.searchDelay) / 1000)
-    }
+    return TimeInterval(Double(UserDefaults.standard.searchDelay) / 1000)
+  }
 
   private func setQuery(_ newQuery: String) {
     guard queryField.stringValue != newQuery else {
