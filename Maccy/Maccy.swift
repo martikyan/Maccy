@@ -66,6 +66,7 @@ class Maccy: NSObject {
       UserDefaults.Keys.maxMenuItems: UserDefaults.Values.maxMenuItems,
       UserDefaults.Keys.maxMenuItemLength: UserDefaults.Values.maxMenuItemLength,
       UserDefaults.Keys.previewDelay: UserDefaults.Values.previewDelay,
+      UserDefaults.Keys.searchDelay: UserDefaults.Values.searchDelay,
       UserDefaults.Keys.showInStatusBar: UserDefaults.Values.showInStatusBar
     ])
 
