@@ -71,10 +71,10 @@
 "ZHc-k4-Nf9.ibShadowedToolTip" = "Ändere die Position des Popup-Fensters.\nStandard: Mauszeiger.";
 
 /* Class = "NSTextFieldCell"; title = "Delay in milliseconds for search results update.\nDefault: 400."; ObjectID = "0YN-ig-1nW"; */
-"0YN-ig-1nW.title" = "";
+"0YN-ig-1nW.title" = "Verzögerung in Millisekunden für die Aktualisierung der Suchergebnisse.\nStandard: 400.";
 
 /* Class = "NSPopUpButton"; ibShadowedToolTip = "Change the location where popup appears.\nDefault: Cursor."; ObjectID = "MCd-5h-YbU"; */
-"MCd-5h-YbU.ibShadowedToolTip" = "";
+"MCd-5h-YbU.ibShadowedToolTip" = "Ändern Sie den Ort, an dem das Popup angezeigt wird.\nStandard: Cursor.";
 
 /* Class = "NSTextFieldCell"; title = "Search delay:"; ObjectID = "wFt-z6-emF"; */
-"wFt-z6-emF.title" = "";
+"wFt-z6-emF.title" = "Suchverzögerung:";

@@ -71,10 +71,10 @@
 "ZHc-k4-Nf9.ibShadowedToolTip" = "Cambia la ubicación donde aparce la aplicación\nPor defecto: Cursor.";
 
 /* Class = "NSTextFieldCell"; title = "Delay in milliseconds for search results update.\nDefault: 400."; ObjectID = "0YN-ig-1nW"; */
-"0YN-ig-1nW.title" = "";
+"0YN-ig-1nW.title" = "Retraso en milisegundos para la actualización de los resultados de búsqueda.\nPredeterminado: 400.";
 
 /* Class = "NSPopUpButton"; ibShadowedToolTip = "Change the location where popup appears.\nDefault: Cursor."; ObjectID = "MCd-5h-YbU"; */
-"MCd-5h-YbU.ibShadowedToolTip" = "";
+"MCd-5h-YbU.ibShadowedToolTip" = "Cambiar la ubicación donde aparece el menú emergente.\nPredeterminado: Cursor.";
 
 /* Class = "NSTextFieldCell"; title = "Search delay:"; ObjectID = "wFt-z6-emF"; */
-"wFt-z6-emF.title" = "";
+"wFt-z6-emF.title" = "Retardo de búsqueda:";
