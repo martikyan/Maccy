@@ -23,6 +23,8 @@ class Menu: NSMenu, NSMenuDelegate {
 
   public let maxHotKey = 9
 
+  public var isVisible: Bool!
+
   public var firstUnpinnedHistoryMenuItem: HistoryMenuItem? {
     historyMenuItems.first(where: { !$0.isPinned })
   }
@@ -79,6 +81,7 @@ class Menu: NSMenu, NSMenuDelegate {
   }
 
   func menuWillOpen(_ menu: NSMenu) {
+    isVisible = true
     previewThrottle.minimumDelay = initialPreviewDelay
 
     updateUnpinnedItemsVisibility()
@@ -87,9 +90,17 @@ class Menu: NSMenu, NSMenuDelegate {
   }
 
   func menuDidClose(_ menu: NSMenu) {
+    isVisible = false
     offloadCurrentPreview()
+    if let headerView = items.first?.view as? MenuHeaderView {
+      DispatchQueue.main.async {
+        headerView.setQuery("")
+        headerView.queryField.refusesFirstResponder = true
+      }
+    }
   }
 
+  // swiftlint:disable function_body_length
   func menu(_ menu: NSMenu, willHighlight item: NSMenuItem?) {
     offloadCurrentPreview()
 
@@ -113,12 +124,23 @@ class Menu: NSMenu, NSMenuDelegate {
       previewPopover?.behavior = .semitransient
       previewPopover?.contentViewController = Preview(item: item.item)
 
-      if let previewView = indexedItem.previewMenuItem.view,
-         let previewWindow = previewView.window,
-         let windowContentView = previewWindow.contentView {
-        // Check if the preview item is non-obstructed (which can e.g. happen is scrollable and the scroll arrow overlaps the item)
+      guard let previewView = indexedItem.previewMenuItem.view else {
+        return
+      }
+
+      var previewWindow: NSWindow?
+      if #available(macOS 14, *) {
+        previewWindow = NSApp.windows.first(where: { String(describing: type(of: $0)) == "NSPopupMenuWindow" })
+      } else {
+        // Check if the preview item is non-obstructed
+        // (which can e.g. happen is scrollable and the scroll arrow overlaps the item)
         guard previewView.superview?.superview != nil else { return }
 
+        previewWindow = previewView.window
+      }
+
+      if let previewWindow = previewWindow,
+         let windowContentView = previewWindow.contentView {
         previewThrottle.minimumDelay = Menu.subsequentPreviewDelay
 
         func getPrecedingView() -> NSView? {
@@ -150,7 +172,10 @@ class Menu: NSMenu, NSMenuDelegate {
         )
 
         let heightOfVisibleMenuItem = abs(topPoint.y - bottomPoint.y)
-        let boundsOfVisibleMenuItem = NSRect(origin: bottomPoint, size: NSSize(width: previewView.bounds.width, height: heightOfVisibleMenuItem))
+        let boundsOfVisibleMenuItem = NSRect(
+          origin: bottomPoint,
+          size: NSSize(width: previewView.bounds.width, height: heightOfVisibleMenuItem)
+        )
 
         previewPopover?.show(
           relativeTo: boundsOfVisibleMenuItem,
@@ -160,14 +185,19 @@ class Menu: NSMenu, NSMenuDelegate {
 
         if let popoverWindow = previewPopover?.contentViewController?.view.window {
           if popoverWindow.frame.minX < previewWindow.frame.minX {
-            popoverWindow.setFrameOrigin(NSPoint(x: popoverWindow.frame.minX - Menu.popoverGap, y: popoverWindow.frame.minY))
+            popoverWindow.setFrameOrigin(
+              NSPoint(x: popoverWindow.frame.minX - Menu.popoverGap, y: popoverWindow.frame.minY)
+            )
           } else {
-            popoverWindow.setFrameOrigin(NSPoint(x: popoverWindow.frame.minX + Menu.popoverGap, y: popoverWindow.frame.minY))
+            popoverWindow.setFrameOrigin(
+              NSPoint(x: popoverWindow.frame.minX + Menu.popoverGap, y: popoverWindow.frame.minY)
+            )
           }
         }
       }
     }
   }
+  // swiftlint:enable function_body_length
 
   func buildItems() {
     clearAll()
@@ -244,8 +274,11 @@ class Menu: NSMenu, NSMenuDelegate {
 
     // Ensure that pinned items are visible after search is cleared.
     if filter.isEmpty {
-      results.append(contentsOf: indexedItems.filter({ $0.item.pin != nil })
-                                             .map({ Search.SearchResult(score: nil, object: $0, titleMatches: []) }))
+      results.append(
+        contentsOf: indexedItems
+          .filter({ $0.item.pin != nil })
+          .map({ Search.SearchResult(score: nil, object: $0, titleMatches: []) })
+      )
     }
 
     // First, remove items that don't match search.
@@ -434,18 +467,24 @@ class Menu: NSMenu, NSMenuDelegate {
   }
 
   private func highlight(_ itemToHighlight: NSMenuItem?) {
+    if #available(macOS 14, *) {
+      DispatchQueue.main.async { self.highlightItem(itemToHighlight) }
+    } else {
+      highlightItem(itemToHighlight)
+    }
+  }
+
+  private func highlightItem(_ itemToHighlight: NSMenuItem?) {
     let highlightItemSelector = NSSelectorFromString("highlightItem:")
-    if let item = itemToHighlight {
-      // we need to highlight filter menu item to force menu redrawing
-      // when it has more items that can fit into the screen height
-      // and scrolling items are added to the top and bottom of menu
-      perform(highlightItemSelector, with: items.first)
-      if items.contains(item) {
-        perform(highlightItemSelector, with: item)
-      }
+    // we need to highlight filter menu item to force menu redrawing
+    // when it has more items that can fit into the screen height
+    // and scrolling items are added to the top and bottom of menu
+    perform(highlightItemSelector, with: items.first)
+    if let item = itemToHighlight, !item.isHighlighted, items.contains(item) {
+      perform(highlightItemSelector, with: item)
     } else {
       // Unhighlight current item.
-       perform(highlightItemSelector, with: nil)
+      perform(highlightItemSelector, with: nil)
     }
   }
 
@@ -548,7 +587,11 @@ class Menu: NSMenu, NSMenuDelegate {
       return
     }
 
-    addItem(item)
+    if #available(macOS 14, *) {
+      items.append(item)
+    } else {
+      addItem(item)
+    }
   }
 
   private func safeInsertItem(_ item: NSMenuItem, at index: Int) {
@@ -556,7 +599,11 @@ class Menu: NSMenu, NSMenuDelegate {
       return
     }
 
-    insertItem(item, at: index)
+    if #available(macOS 14, *) {
+      items.insert(item, at: index)
+    } else {
+      insertItem(item, at: index)
+    }
   }
 
   private func safeRemoveItem(_ item: NSMenuItem?) {
@@ -565,7 +612,11 @@ class Menu: NSMenu, NSMenuDelegate {
       return
     }
 
-    removeItem(item)
+    if #available(macOS 14, *) {
+      items.removeAll(where: { $0 == item })
+    } else {
+      removeItem(item)
+    }
   }
 
   private func offloadCurrentPreview() {
